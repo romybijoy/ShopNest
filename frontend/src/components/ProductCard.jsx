@@ -66,11 +66,11 @@ export default function ProductCard({ product }) {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 12 }}>
             <div>
               <span className="price" style={{ fontSize: 18, color: 'var(--text)' }}>
-                ${effectivePrice.toFixed(2)}
+                ₹{effectivePrice.toFixed(2)}
               </span>
               {product.discountPrice && (
                 <span className="price-original" style={{ marginLeft: 6 }}>
-                  ${product.price.toFixed(2)}
+                  ₹{product.price.toFixed(2)}
                 </span>
               )}
             </div>

@@ -22,7 +22,7 @@ export default function AdminOrders() {
     }).finally(() => setLoading(false))
   }
 
-  useEffect(load, [page])
+ useEffect(() => { load() }, [page])
 
   const handleStatus = async (id, status) => {
     try {
@@ -60,7 +60,7 @@ export default function AdminOrders() {
                       </td>
                       <td style={{ fontSize: 14 }}>{o.customerName}</td>
                       <td><span className="badge badge-secondary">{o.orderItems.length}</span></td>
-                      <td style={{ fontWeight: 700, fontFamily: 'var(--font-head)' }}>${o.totalAmount.toFixed(2)}</td>
+                      <td style={{ fontWeight: 700, fontFamily: 'var(--font-head)' }}>₹{o.totalAmount.toFixed(2)}</td>
                       <td><span className={`badge badge-${STATUS_CLR[o.status]||'secondary'}`}>{o.status}</span></td>
                       <td style={{ fontSize: 13, color: 'var(--text2)' }}>
                         {new Date(o.createdAt).toLocaleDateString()}
@@ -85,15 +85,15 @@ export default function AdminOrders() {
                                 <strong style={{ color: 'var(--text2)' }}>Items:</strong>
                                 {o.orderItems.map(i => (
                                   <div key={i.id} style={{ padding: '4px 0' }}>
-                                    {i.productName} ×{i.quantity} — ${i.totalPrice.toFixed(2)}
+                                    {i.productName} ×{i.quantity} — ₹{i.totalPrice.toFixed(2)}
                                   </div>
                                 ))}
                               </div>
                               <div style={{ color: 'var(--text2)', lineHeight: 1.8 }}>
                                 <div><strong>Ship to:</strong> {o.shippingAddressLine1}, {o.shippingCity}, {o.shippingState}</div>
-                                <div><strong>Subtotal:</strong> ${o.subtotal.toFixed(2)}</div>
-                                <div><strong>Tax:</strong> ${o.tax.toFixed(2)}</div>
-                                <div><strong>Shipping:</strong> ${o.shippingCost.toFixed(2)}</div>
+                                <div><strong>Subtotal:</strong> ₹{o.subtotal.toFixed(2)}</div>
+                                <div><strong>Tax:</strong> ₹{o.tax.toFixed(2)}</div>
+                                <div><strong>Shipping:</strong> ₹{o.shippingCost.toFixed(2)}</div>
                                 {o.payment && (
                                   <div><strong>Payment:</strong> {o.payment.status} · {o.payment.maskedCardNumber}</div>
                                 )}

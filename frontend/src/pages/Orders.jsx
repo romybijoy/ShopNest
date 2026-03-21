@@ -20,7 +20,7 @@ export default function Orders() {
       .finally(() => setLoading(false))
   }
 
-  useEffect(load, [])
+  useEffect(() => { load() }, [])
 
   const handleCancel = async (id) => {
     try {
@@ -84,7 +84,7 @@ export default function Orders() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                     <span style={{ fontFamily: 'var(--font-head)', fontWeight: 800, fontSize: 20,
                                     color: 'var(--accent)' }}>
-                      ${order.totalAmount.toFixed(2)}
+                      ₹{order.totalAmount.toFixed(2)}
                     </span>
                     {expanded === order.id ? <ChevronUp size={18} color="var(--text2)" /> : <ChevronDown size={18} color="var(--text2)" />}
                   </div>
@@ -106,7 +106,7 @@ export default function Orders() {
                                                        padding: '8px 12px', background: 'var(--bg3)',
                                                        borderRadius: 'var(--radius-sm)' }}>
                             <span>{item.productName} × {item.quantity}</span>
-                            <span style={{ fontWeight: 600 }}>${item.totalPrice.toFixed(2)}</span>
+                            <span style={{ fontWeight: 600 }}>₹{item.totalPrice.toFixed(2)}</span>
                           </div>
                         ))}
                       </div>
@@ -115,9 +115,9 @@ export default function Orders() {
                     {/* Totals */}
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
                       <div style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 2 }}>
-                        <div>Subtotal: <strong style={{ color: 'var(--text)' }}>${order.subtotal.toFixed(2)}</strong></div>
-                        <div>Tax: <strong style={{ color: 'var(--text)' }}>${order.tax.toFixed(2)}</strong></div>
-                        <div>Shipping: <strong style={{ color: 'var(--text)' }}>${order.shippingCost.toFixed(2)}</strong></div>
+                        <div>Subtotal: <strong style={{ color: 'var(--text)' }}>₹{order.subtotal.toFixed(2)}</strong></div>
+                        <div>Tax: <strong style={{ color: 'var(--text)' }}>₹{order.tax.toFixed(2)}</strong></div>
+                        <div>Shipping: <strong style={{ color: 'var(--text)' }}>₹{order.shippingCost.toFixed(2)}</strong></div>
                       </div>
                       <div style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 2 }}>
                         <div style={{ fontWeight: 600, color: 'var(--text)', fontSize: 14 }}>Ship to:</div>

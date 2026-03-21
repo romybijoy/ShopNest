@@ -58,7 +58,7 @@ export default function Home() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 24 }}>
             {[
               { icon: <ShieldCheck size={28} color="var(--accent)" />, title: 'Encrypted Payments', desc: 'AES-256 encrypted card data at rest' },
-              { icon: <Truck size={28} color="var(--accent2)" />, title: 'Free Shipping', desc: 'On orders over $50 — always' },
+              { icon: <Truck size={28} color="var(--accent2)" />, title: 'Free Shipping', desc: 'On orders over ₹50 — always' },
               { icon: <RefreshCw size={28} color="var(--success)" />, title: '30-Day Returns', desc: 'Hassle-free return policy' },
               { icon: <Zap size={28} color="var(--warning)" />, title: 'OAuth2 Security', desc: 'JWT token-based authentication' },
             ].map(f => (

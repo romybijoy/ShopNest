@@ -250,7 +250,7 @@ export default function Checkout() {
                     onClick={handlePlaceOrder} disabled={loading}>
                     {loading
                       ? <span className="spinner" style={{ width: 20, height: 20, borderWidth: 2 }} />
-                      : `Place Order — $${total.toFixed(2)}`}
+                      : `Place Order — ₹${total.toFixed(2)}`}
                   </button>
                 </div>
               </div>
@@ -266,28 +266,28 @@ export default function Checkout() {
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 140 }}>
                   {product.name} ×{quantity}
                 </span>
-                <span>${((product.discountPrice ?? product.price) * quantity).toFixed(2)}</span>
+                <span>₹{((product.discountPrice ?? product.price) * quantity).toFixed(2)}</span>
               </div>
             ))}
             <div style={{ borderTop: '1px solid var(--border)', marginTop: 12, paddingTop: 12,
                            display: 'flex', flexDirection: 'column', gap: 6 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text2)' }}>
-                <span>Subtotal</span><span>${totalAmount.toFixed(2)}</span>
+                <span>Subtotal</span><span>₹{totalAmount.toFixed(2)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text2)' }}>
                 <span>Shipping</span>
                 <span style={{ color: shipping === 0 ? 'var(--success)' : 'inherit' }}>
-                  {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                  {shipping === 0 ? 'Free' : `₹${shipping.toFixed(2)}`}
                 </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text2)' }}>
-                <span>Tax</span><span>${tax.toFixed(2)}</span>
+                <span>Tax</span><span>₹{tax.toFixed(2)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between',
                              fontWeight: 800, fontSize: 17, fontFamily: 'var(--font-head)',
                              paddingTop: 8, borderTop: '1px solid var(--border)' }}>
                 <span>Total</span>
-                <span style={{ color: 'var(--accent)' }}>${total.toFixed(2)}</span>
+                <span style={{ color: 'var(--accent)' }}>₹{total.toFixed(2)}</span>
               </div>
             </div>
           </div>

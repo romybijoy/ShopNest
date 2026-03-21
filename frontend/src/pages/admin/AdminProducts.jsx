@@ -26,7 +26,7 @@ export default function AdminProducts() {
     }).finally(() => setLoading(false))
   }
 
-  useEffect(load, [page])
+  useEffect(() => { load() }, [page])
   useEffect(() => { publicApi.getCategories().then(r => setCategories(r.data.data)) }, [])
 
   const openCreate = () => { setEditing(null); setForm(EMPTY); setModal(true) }
@@ -109,8 +109,8 @@ export default function AdminProducts() {
                     <td style={{ fontSize: 13, color: 'var(--text2)' }}>{p.sku || '—'}</td>
                     <td><span className="badge badge-info">{p.categoryName}</span></td>
                     <td>
-                      <div style={{ fontWeight: 700 }}>${p.price.toFixed(2)}</div>
-                      {p.discountPrice && <div style={{ fontSize: 12, color: 'var(--accent2)' }}>${p.discountPrice.toFixed(2)}</div>}
+                      <div style={{ fontWeight: 700 }}>₹{p.price.toFixed(2)}</div>
+                      {p.discountPrice && <div style={{ fontSize: 12, color: 'var(--accent2)' }}>₹{p.discountPrice.toFixed(2)}</div>}
                     </td>
                     <td>
                       <span className={`badge badge-${p.stockQuantity === 0 ? 'danger' : p.stockQuantity < 10 ? 'warning' : 'success'}`}>

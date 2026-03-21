@@ -14,7 +14,7 @@ export default function AdminCategories() {
   const [saving,     setSaving]     = useState(false)
 
   const load = () => categoryApi.getAll().then(r => setCategories(r.data.data)).finally(() => setLoading(false))
-  useEffect(load, [])
+ useEffect(() => { load() }, [])
 
   const openCreate = () => { setEditing(null); setForm(EMPTY); setModal(true) }
   const openEdit   = (c)  => { setEditing(c); setForm({ name: c.name, description: c.description || '', imageUrl: c.imageUrl || '', active: c.active }); setModal(true) }

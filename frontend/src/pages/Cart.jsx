@@ -51,9 +51,9 @@ export default function Cart() {
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--text2)', marginBottom: 8 }}>{product.categoryName}</div>
                     <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--accent)' }}>
-                      ${(price * quantity).toFixed(2)}
+                      ₹{(price * quantity).toFixed(2)}
                       <span style={{ fontSize: 12, color: 'var(--text2)', fontWeight: 400, marginLeft: 6 }}>
-                        (${price.toFixed(2)} each)
+                        (₹{price.toFixed(2)} each)
                       </span>
                     </div>
                   </div>
@@ -101,9 +101,9 @@ export default function Cart() {
             <h3 style={{ marginBottom: 20, fontSize: 18 }}>Order Summary</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
               {[
-                ['Subtotal', `$${totalAmount.toFixed(2)}`],
-                ['Shipping', shipping === 0 ? <span style={{ color: 'var(--success)' }}>Free</span> : `$${shipping.toFixed(2)}`],
-                ['Tax (8%)', `$${tax.toFixed(2)}`],
+                ['Subtotal', `₹${totalAmount.toFixed(2)}`],
+                ['Shipping', shipping === 0 ? <span style={{ color: 'var(--success)' }}>Free</span> : `₹${shipping.toFixed(2)}`],
+                ['Tax (8%)', `₹${tax.toFixed(2)}`],
               ].map(([label, value]) => (
                 <div key={label} style={{ display: 'flex', justifyContent: 'space-between',
                                           color: 'var(--text2)', fontSize: 14 }}>
@@ -113,14 +113,14 @@ export default function Cart() {
               {totalAmount < 50 && (
                 <div style={{ fontSize: 12, color: 'var(--text3)', background: 'var(--bg3)',
                                borderRadius: 6, padding: '8px 10px' }}>
-                  Add ${(50 - totalAmount).toFixed(2)} more for free shipping
+                  Add ₹{(50 - totalAmount).toFixed(2)} more for free shipping
                 </div>
               )}
               <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14,
                              display: 'flex', justifyContent: 'space-between',
                              fontWeight: 800, fontSize: 20, fontFamily: 'var(--font-head)' }}>
                 <span>Total</span>
-                <span style={{ color: 'var(--accent)' }}>${total.toFixed(2)}</span>
+                <span style={{ color: 'var(--accent)' }}>₹{total.toFixed(2)}</span>
               </div>
             </div>
 

@@ -82,7 +82,7 @@ export default function AdminPayments() {
                     <td style={{ fontSize: 13 }}>
                       <span className="badge badge-secondary">{p.paymentMethod?.replace('_',' ')}</span>
                     </td>
-                    <td style={{ fontWeight: 700, fontFamily: 'var(--font-head)' }}>${p.amount.toFixed(2)}</td>
+                    <td style={{ fontWeight: 700, fontFamily: 'var(--font-head)' }}>₹{p.amount.toFixed(2)}</td>
                     <td>
                       <span className={`badge badge-${STATUS_CLR[p.status] || 'secondary'}`}>{p.status}</span>
                     </td>
