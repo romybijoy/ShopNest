@@ -41,7 +41,7 @@ export default function AdminPayments() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(180px,1fr))', gap: 14, marginBottom: 28 }}>
           {[
             { label: 'Total Payments', value: stats.totalPayments },
-            { label: 'Collected',      value: `$${Number(stats.totalCollected).toFixed(2)}` },
+            { label: 'Collected',      value: `₹${Number(stats.totalCollected).toFixed(2)}` },
             { label: 'Failure Rate',   value: `${stats.failureRatePercent}%` },
           ].map(s => (
             <div key={s.label} className="stat-card" style={{ padding: '16px 20px' }}>
