@@ -2,9 +2,18 @@ import { useState, useEffect } from 'react'
 import { orderApi } from '../../services/api'
 import toast from 'react-hot-toast'
 
-const STATUSES   = ['PENDING','CONFIRMED','PROCESSING','SHIPPED','DELIVERED','CANCELLED','REFUNDED']
 const STATUS_CLR = { PENDING:'warning',CONFIRMED:'info',PROCESSING:'info',
                      SHIPPED:'info',DELIVERED:'success',CANCELLED:'danger',REFUNDED:'secondary' }
+
+const ALLOWED_TRANSITIONS = {
+    PENDING:    ['CONFIRMED', 'CANCELLED'],
+    CONFIRMED:  ['PROCESSING', 'CANCELLED'],
+    PROCESSING: ['SHIPPED', 'CANCELLED'],
+    SHIPPED:    ['DELIVERED', 'CANCELLED'],
+    DELIVERED:  ['REFUNDED'],
+    CANCELLED:  [],
+    REFUNDED:   [],
+}
 
 export default function AdminOrders() {
   const [orders,     setOrders]     = useState([])
@@ -66,13 +75,19 @@ export default function AdminOrders() {
                         {new Date(o.createdAt).toLocaleDateString()}
                       </td>
                       <td onClick={e => e.stopPropagation()}>
-                        <select
-                          value={o.status}
-                          onChange={e => handleStatus(o.id, e.target.value)}
-                          style={{ fontSize: 12, padding: '4px 8px', width: 'auto' }}
-                        >
-                          {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
-                        </select>
+                          <select
+                              value={o.status}
+                              onChange={e => handleStatus(o.id, e.target.value)}
+                              style={{ fontSize: 12, padding: '4px 8px', width: 'auto' }}
+                          >
+                              {/* Always show current status */}
+                              <option value={o.status}>{o.status}</option>
+
+                              {/* Only show valid next statuses */}
+                              {ALLOWED_TRANSITIONS[o.status]?.map(s => (
+                                  <option key={s} value={s}>{s}</option>
+                              ))}
+                          </select>
                       </td>
                     </tr>
                     {expanded === o.id && (

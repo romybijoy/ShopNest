@@ -153,11 +153,54 @@ public class OrderService {
 
     @Transactional
     @PreAuthorize("hasRole('ADMIN')")
-    public OrderDto.Response updateOrderStatus(Long id, OrderStatus status) {
+    public OrderDto.Response updateOrderStatus(Long id, OrderStatus newStatus) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order", id));
-        order.setStatus(status);
+
+        OrderStatus currentStatus = order.getStatus();
+
+        // Validate status transition
+        validateStatusTransition(currentStatus, newStatus);
+
+        order.setStatus(newStatus);
         return toResponse(orderRepository.save(order));
+    }
+
+    private void validateStatusTransition(OrderStatus current, OrderStatus next) {
+        // Cannot change a delivered order except to REFUNDED
+        if (current == OrderStatus.DELIVERED && next != OrderStatus.REFUNDED) {
+            throw new BadRequestException(
+                    "Delivered order can only be moved to REFUNDED");
+        }
+
+        // Cannot change a cancelled order
+        if (current == OrderStatus.CANCELLED) {
+            throw new BadRequestException(
+                    "Cannot change status of a cancelled order");
+        }
+
+        // Cannot change a refunded order
+        if (current == OrderStatus.REFUNDED) {
+            throw new BadRequestException(
+                    "Cannot change status of a refunded order");
+        }
+
+        // Define allowed forward transitions
+        Map<OrderStatus, List<OrderStatus>> allowed = Map.of(
+                OrderStatus.PENDING,    List.of(OrderStatus.CONFIRMED, OrderStatus.CANCELLED),
+                OrderStatus.CONFIRMED,  List.of(OrderStatus.PROCESSING, OrderStatus.CANCELLED),
+                OrderStatus.PROCESSING, List.of(OrderStatus.SHIPPED, OrderStatus.CANCELLED),
+                OrderStatus.SHIPPED,    List.of(OrderStatus.DELIVERED, OrderStatus.CANCELLED),
+                OrderStatus.DELIVERED,  List.of(OrderStatus.REFUNDED)
+        );
+
+        List<OrderStatus> allowedNext = allowed.get(current);
+
+        if (allowedNext == null || !allowedNext.contains(next)) {
+            throw new BadRequestException(
+                    "Invalid status transition from " + current + " to " + next +
+                            ". Allowed: " + allowedNext);
+        }
     }
 
     @Transactional
