@@ -12,9 +12,9 @@
     </parent>
 
     <groupId>com.ecommerce</groupId>
-    <artifactId>ecommerce-api</artifactId>
+    <artifactId>shopnest-api</artifactId>
     <version>1.0.0</version>
-    <name>ecommerce-api</name>
+    <name>shopnest-api</name>
     <description>E-Commerce API with Spring Boot, OAuth2, and encrypted payments</description>
 
     <properties>
